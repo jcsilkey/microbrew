@@ -1,5 +1,5 @@
 # Microbrew
-Microbrew is a lightweight wrapper around [Homebrew](http://brew.sh) that will look for a configuration file named HOMEBREW_PREFIX/etc/homebrew/homebrew.yaml and load it before invoking Homebrew. It started as a feature proposal to add this functionality natively to Homebrew (currently the only way to configure options for Homebrew is via environmental variables).
+Microbrew is a lightweight wrapper around [Homebrew](http://brew.sh) that will look for a configuration file named PREFIX/etc/homebrew/homebrew.yaml (where PREFIX/bin is where you install microbrew) and load it before invoking Homebrew. It started as a feature proposal to add this functionality natively to Homebrew (currently the only way to configure options for Homebrew is via environmental variables).
 
 ## Usage
 Currently you must manually install the file into your path.
