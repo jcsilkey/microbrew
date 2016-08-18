@@ -1,0 +1,47 @@
+#!/usr/bin/env ruby
+
+require "yaml"
+require "json"
+
+# these are the valid configuration options I know of:
+# HOMEBREW_ARTIFACT_DOMAIN
+# HOMEBREW_AUTO_UPDATE_SECS
+# HOMEBREW_BOTTLE_DOMAIN
+# HOMEBREW_BROWSER
+# HOMEBREW_BUILD_FROM_SOURCE
+# HOMEBREW_CACHE
+# HOMEBREW_CURL_VERBOSE
+# HOMEBREW_DEBUG
+# HOMEBREW_DEBUG_INSTALL
+# HOMEBREW_DEBUG_PREFIX
+# HOMEBREW_DEVELOPER
+# HOMEBREW_EDITOR
+# HOMEBREW_GITHUB_API_TOKEN
+# HOMEBREW_INSTALL_BADGE
+# HOMEBREW_LOGS
+# HOMEBREW_MAKE_JOBS
+# HOMEBREW_NO_ANALYTICS
+# HOMEBREW_NO_AUTO_UPDATE
+# HOMEBREW_NO_EMOJI
+# HOMEBREW_NO_INSECURE_REDIRECT
+# HOMEBREW_NO_GITHUB_API
+# HOMEBREW_SVN
+# HOMEBREW_TEMP
+# HOMEBREW_VERBOSE
+
+prefix = File.expand_path(File.dirname(File.dirname(__FILE__)))
+config_file = "#{prefix}/etc/homebrew/homebrew.yaml"
+
+if File.file?(config_file) and File.readable?(config_file)
+  begin
+    YAML.load_file(config_file).each do |key, value|
+      ENV[key] = value if ENV[key].nil? and value.is_a? String
+    end
+  rescue
+    abort("Could not parse configuration file #{config_file}. Exiting...")
+  end
+end
+
+Kernel.exec('brew', *ARGV)
+
+# vi: set ft=ruby :
